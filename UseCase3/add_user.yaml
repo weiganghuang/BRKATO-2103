@@ -21,8 +21,8 @@
         ssh_key_file: /Users/weigang/.ssh/id_rsa 
         ssh_key_type: rsa 
     with_items: 
-      - { name: 'sarav', group: 'adminteam'}
-      - { name: 'hanu', group: 'devopsteam'}
+      - { name: 'weigang', group: 'adminteam'}
+      - { name: 'sanka', group: 'devopsteam'}
 
   - name: "Copy the authorized key file from"
     authorized_key:
@@ -30,5 +30,5 @@
       state: "{{item.userstate}}"
       key: "{{ lookup('file', '{{ item.key }}')}}"
     with_items:
-      - { name: 'sarav', key: '/Users/weigang/.ssh/id_rsa.pub', userstate: 'present'}
-      - { name: 'hanu', key: '/Users/weigang/.ssh/id_rsa.pub', userstate: 'present'} 
+      - { name: 'weigang', key: '/Users/weigang/.ssh/id_rsa.pub', userstate: 'present'}
+      - { name: 'sanka', key: '/Users/weigang/.ssh/id_rsa.pub', userstate: 'present'} 
