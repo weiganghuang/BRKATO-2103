@@ -9,8 +9,5 @@ filters:
 keyed_groups:
   - key: tags
     prefix: tag
-  # - prefix: instance_type
-  #   key: instance_type
-  # - key: placement.region
-  #   prefix: aws_region
+  
     
