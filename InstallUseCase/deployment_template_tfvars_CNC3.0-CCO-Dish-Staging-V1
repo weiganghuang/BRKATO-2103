@@ -1,0 +1,279 @@
+/********************************************
+* Cw Cluster deployment input data TEMPLATE *
+*              vcenter version              *
+*              EDIT BEFORE USE              *
+*                    v4.1.0                 *
+*********************************************
+#See at the end of the file for a configured sample
+
+/********* Crosswork Cluster Data  *********/
+
+  # The name of the Crosswork cluster.
+  ClusterName      = "day0-cnc-3.0-fcs-cluster"
+
+  # Provide  name of Cw VM image in vcenter or leave empty
+  # When empty the image name will be populated from the uploaded image
+  Cw_VM_Image = "cw-na-platform-4.1.0-38-release-211108.ova"    # Line added automatically by installer.
+
+  # The IP stack protocol: IPv4 or IPv6
+  ClusterIPStack        = "IPv4"
+
+  # The Management Virtual IP for the cluster
+  ManagementVIP     = "10.140.131.55"
+  
+  # Optional: The Management Virtual IP host-name
+  ManagementVIPName = ""
+
+  # The Management IP subnet in dotted decimal format for ipv4 or prefix length for ipv6
+  ManagementIPNetmask = "255.255.255.0"
+
+  # The Gateway IP on the Management Network
+  ManagementIPGateway = "10.140.131.1"
+
+  # The Data Virtual IP for the cluster. Use 0.0.0.0 or ::0 to disable
+  DataVIP           = "172.26.240.55"
+
+  # Optional: The Data Virtual IP host-name
+  DataVIPName = ""
+
+  # The Data IP subnet in dotted decimal format for ipv4 or prefix length for ipv6
+  # Provied any regular mask when not in use
+  DataIPNetmask       = "255.255.255.0"
+
+  # The Gateway IP on the Management Network
+  DataIPGateway       = "172.26.240.1"
+
+  #  The IP address of the DNS server
+  DNS                 = "8.8.8.8"
+
+  # The domain name to use for the cluster
+  DomainName            = "dish-wireless.net"
+
+  # Sets the cw-admin user ssh login password for all VMs in the cluster
+  # The password MUST be of min length 8 and strong
+  CWPassword            = "Ciscosdn!123"
+
+  # Sets the VM size for the cluster.
+  # Options are: Small | Large.
+  VMSize                = "Large"
+
+  # NTP server address or name
+  NTP                   = "10.140.129.141"
+
+  # Configuration Manifest schema version
+  SchemaVersion                   = "4.1.0"
+
+  # Data disk size for Manager/Hybrid nodes in GB. Min 450 Max 8000
+  ManagerDataFsSize = 450
+  # Data disk size for Worker nodes in GB. Min 450 Max 8000
+  WorkerDataFsSize = 450
+
+  // Thin or thick provisioning for all disks. Set to true for thin provisioning, false for thick
+  ThinProvisioned = true
+
+  # Log partition size in GB. Min 10 Max 1000
+  LogFsSize = 10
+
+  # Minimum percentage of the data disk space to be used for the size of the backup partition
+  # Note: The final backup partition size will be calculated dynamically. This parameter defines the minimum.
+  # Valid range 1 - 80
+  BackupMinPercent = 50
+
+  # Enforces VM profile reservations as "hard"
+  EnableHardReservations = false
+  
+  # FOR DEMO USE ONLY - NOT TO BE USED IN PRODUCTION DEPLOYMENTS
+  # Ram disk size in GB
+  RamDiskSize           = 0
+
+
+/********* Crosswork VM Data Map *********/
+# Configure named entries for each Cw VM.
+# Number of Hybrid VMs minimum: 3; maximum: 3
+# Number of Worker VMs minimum: 0; maximum: 3
+
+CwVMs = {
+    # Seed VMs' data.
+    # IMPORTANT: A VM with id "0" MUST be present in the initial day0 install manifest and its role MUST be
+    # set to either MASTER or HYBRID.
+  "0" = {
+
+    # This VM's name
+    VMName                = "CNC3.0-CCO-VM0",
+
+    # This VMs' management IP address
+    ManagementIPAddress = "10.140.131.56",
+
+    # This VMs' data IP address. Use 0.0.0.0 or ::0 to disable
+    DataIPAddress       = "172.26.240.56",
+
+    # This Cw VM's type - use "Hybrid" for initial install
+    NodeType               = "Hybrid",
+
+    # The state for this VM; 2 = running. Only uncomment when doing a manual inventory import
+    #VM_State = 2
+  },
+
+   # Second VMs' data
+  "1" = {
+
+    # This VM's name
+    VMName                = "CNC3.0-CCO-VM1",
+
+    # This VMs' management IP address
+    ManagementIPAddress = "10.140.131.57",
+
+    # This VMs' data IP address
+    DataIPAddress       = "172.26.240.57",
+
+    # This Cw VM's type - use "Hybrid" for initial install
+    NodeType               = "Hybrid",
+
+    # The state for this VM; 2 = running. Only uncomment when doing a manual inventory import
+    #VM_State = 2
+  },
+
+  "2" = {
+
+    # This VM's name
+    VMName                = "CNC3.0-CCO-VM2",
+    ManagementIPAddress = "10.140.131.58",
+    DataIPAddress       = "172.26.240.58",
+
+    # This Cw VM's type - use "Hybrid" for initial install
+    NodeType               = "Hybrid",
+
+    # The state for this VM; 2 = running. Only uncomment when doing a manual inventory import
+    #VM_State = 2
+  }
+}
+
+
+
+/********* vcenter Resource Data with Cw VM assignment *********/
+
+VCentreDC = {
+
+  # The vcenter IP or host name
+  VCentreAddress = "10.140.129.158",
+
+  # The username to use for logging into vcenter
+  VCentreUser = "administrator@vsphere.local",
+
+  # The vcenter password for the user
+  VCentrePassword = "Gilli!1234",
+
+  # The name of the Data Centre resource to use
+  DCname = "Cheyenne DC",
+
+  # The name of the vcenter network to attach to the Cw VM Management interface
+  # NOTE: Escape any special characters using their URL escape codes, eg use "%2f" instead of "/"
+  MgmtNetworkName = "Application Network",
+
+  # The name of the vcenter network to attach to the Cw VM Data interface.
+  # Leave empty if not used.
+  # NOTE: Escape any special characters using their URL escape codes, eg use "%2f" instead of "/"
+  DataNetworkName = "VLAN1",
+
+  # The resource folder name on vcenter. Leave empty if not used.
+  DCfolder = "",
+
+  # List of the vcenter host resources along with the VMs names
+  # that each that each resource will host. Add additional stanzas, separated by a ','
+  # for each additional ESXi host or resource
+  VMs = [{
+      HostedCwVMs = ["0"],
+      Host = "10.140.129.132",
+      Datastore = "manager-01-datastore01",
+      HSDatastore = "manager-01-datastore01",
+  },
+    {
+      HostedCwVMs = ["2"],
+      Host = "10.140.129.151",
+      Datastore = "compute10-data1",
+      HSDatastore = "compute10-data1",
+    },
+   {
+      HostedCwVMs = ["1"],
+      Host = "10.140.129.132",
+      Datastore = "manager-01-datastore01",
+      HSDatastore = "manager-01-datastore01",
+    }
+  ]
+}
+
+//*******
+//Example
+//********
+//
+////#********* Crosswork Cluster Data  *********#
+//
+//  Cw_VM_Image = "cw-na-platform-4.1.0-250-develop-211016"    # Line added automatically by installer.
+//  ClusterIPStack        = "IPv4"
+//  ManagementVIP     = "17.25.87.94"
+//  ManagementIPNetmask = "255.255.255.192"
+//  ManagementIPGateway = "17.25.87.65"
+//  DataVIP           = "192.168.123.94"
+//  DataIPNetmask       = "255.255.255.0"
+//  DataIPGateway       = "0.0.0.0"
+//  DNS                 = "17.70.168.183"
+//  DomainName            = "somedomain.com"
+//  CWPassword            = "AStr0ngPa33!"
+//  VMSize                = "Small"
+//  NTP                   = "ntp.com"
+//  BackupMinPercent      = 50
+//  ThinProvisioned     = true
+//  ManagerDataFsSize = 450
+//  WorkerDataFsSize  = 450
+//
+//#********* Crosswork VM Data Map *********
+//
+//CwVMs = {
+//  "0" = {
+//    VMName                = "vm1",
+//    ManagementIPAddress = "17.25.87.82",
+//    DataIPAddress       = "192.168.123.82",
+//    NodeType               = "Hybrid"
+//  },
+//  "1" = {
+//    VMName                = "vm2",
+//    ManagementIPAddress = "17.25.87.83",
+//    DataIPAddress       = "192.168.123.83",
+//    NodeType               = "Hybrid"
+//  },
+//  "2" = {
+//    VMName                = "vm3",
+//    ManagementIPAddress = "17.25.87.84",
+//    DataIPAddress       = "192.168.123.84",
+//    NodeType               = "Hybrid"
+//  }
+//}
+//
+//
+//#********* vCentre Resource Data with Cw VM assignment *********
+//
+//VCentreDC = {
+//  VCentreAddress = "17.25.87.90",
+//  VCentreUser = "administrator@vsphere.local",
+//  VCentrePassword = "vCentrePass",
+//  DCname = "dc-cr",
+//  MgmtNetworkName = "VM Network",
+//  DataNetworkName = "DPortGroup10",
+//  DCfolder = "",
+//  VMs = [{
+//    HostedCwVMs = ["0","1"],
+//    Host = "17.25.87.93",
+//    Datastore = "datastore3",
+//    HSDatastore = "ssddatastore",
+//  },
+//    {
+//      HostedCwVMs = ["2"],
+//      Host = "17.25.87.92",
+//      Datastore = "datastore2"
+//      HSDatastore = "ssddatastore",
+//    }
+//  ]
+//}
+
+
+

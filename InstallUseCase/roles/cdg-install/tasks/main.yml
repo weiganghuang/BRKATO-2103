@@ -1,0 +1,19 @@
+---
+# file roles/cdg-install/tasks/main.xml, this is to deploy cnc, template jinjia2 file is defined at roles/cdg-install/templates
+# varialbes defined at roles/cdg-insall/default/main.yml
+
+- name: create ovftool dir
+  file:
+    path: "{{ansible_env.HOME}}/ovftool"
+    state: directory
+
+- name: prepare ovf file
+  template:
+    src: "cdg-deploy-base.j2"
+    dest: "{{ansible_env.HOME}}/ovftool/cdg-deploy-{{ item.vm_name }}-temp.sh"
+  with_items: "{{vms}}"
+    
+- name: deploy cdg
+  shell: "sh  {{ansible_env.HOME}}/ovftool/cdg-deploy-{{ item.vm_name }}-temp.sh"
+  with_items: "{{vms}}"
+  

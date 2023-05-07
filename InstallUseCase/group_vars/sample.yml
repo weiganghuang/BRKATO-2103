@@ -1,0 +1,8 @@
+---
+# this is sample secret varialble file for ova install. copy this file to local.yml after updating 
+dg_admin_pw: cisco123
+dg_oper_pw: cisco123
+controller_pw: cisco123
+vcenter_login: user@vsphere.local:cisco123
+
+

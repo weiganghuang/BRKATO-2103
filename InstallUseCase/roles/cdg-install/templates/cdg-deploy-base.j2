@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+ 
+
+
+VM_NAME="{{ item.vm_name }}"
+ActiveVnics="{{ item.active_vnics }}"
+ 
+Hostname="{{ item.host_name }}"
+Vnic0IPv4Address="{{ item.vnic0_ip }}"
+Vnic0IPv4Gateway="{{ item.vnic0_gw  }}"
+Vnic0IPv4Netmask="{{ item.vnic0_mask }}"
+Vnic1IPv4Address="{{ item.vnic1_ip }}"
+Vnic1IPv4Gateway="{{ item.vnic1_gw  }}"
+Vnic1IPv4Netmask="{{ item.vnic1_mask }}"
+VCENTER_PATH="{{ item.vcenter_path }}"
+DS="{{ item.ds }}"
+NIC0="{{item.nics.nic0 }}"
+NIC1="{{ item.nics.nic1}}"
+NIC2="{{ item.nics.nic2}}"
+
+
+
+ROBOT_OVA_PATH="{{cdg_ova }}"
+DM="{{deploy_mode}}"
+Deployment="{{deploy_option}}" 
+
+Vnic0IPv4Method="Static"
+Vnic1IPv4Method="Static"
+ 
+DNS="{{ dns }}"
+NTP="{{ ntp }}"
+Domain="{{ domain }}"
+ 
+ 
+Description="Description for Cisco Crosswork Data Gateway "
+Label="Label for Cisco Crosswork Data Gateway"
+ 
+dg_adminPassword="{{ dg_admin_pw }}"
+dg_operPassword="{{ dg_oper_pw }}"
+ 
+ 
+SyslogAddress=""
+SyslogPort=514
+SyslogProtocol="UDP"
+SyslogTLS=False
+
+##Controller Information
+CONTROLIP="{{ controller_ip }}"
+CONTROLPORT=30607
+CONTROLPEM="{{ controller_pem }}"
+CONTROLPASS="{{ controller_pw }}"
+ 
+# Please replace this information according to your vcenter setup
+VCENTER_LOGIN="{{vcenter_login}}"
+
+
+        ##--extraConfig:firmware=efi \
+        ##--extraConfig:uefi.secureBoot.enabled=true \
+
+ 
+ovftool --acceptAllEulas \
+  --skipManifestCheck \
+  --X:injectOvfEnv \
+  --overwrite \
+  --noSSLVerify \
+  --powerOffTarget \
+  --powerOn \
+   --allowExtraConfig --datastore="$DS" \
+  --diskMode="$DM" \
+        --name=$VM_NAME \
+        --prop:"Hostname=$Hostname" \
+  --prop:"Description=$Description" \
+        --prop:"Label=$Label" \
+        --deploymentOption=$Deployment \
+        --prop:"ActiveVnics=$ActiveVnics" \
+        --net:"vNIC0=$NIC0" \
+        --prop:"Vnic0IPv4Method=$Vnic0IPv4Method" \
+        --prop:"Vnic0IPv4Address=$Vnic0IPv4Address" \
+        --prop:"Vnic0IPv4Gateway=$Vnic0IPv4Gateway" \
+        --prop:"Vnic0IPv4Netmask=$Vnic0IPv4Netmask" \
+        --prop:"Vnic1IPv4Method=$Vnic1IPv4Method" \
+        --prop:"Vnic1IPv4Address=$Vnic1IPv4Address" \
+        --prop:"Vnic1IPv4Gateway=$Vnic1IPv4Gateway" \
+        --prop:"Vnic1IPv4Netmask=$Vnic1IPv4Netmask" \
+        --net:"vNIC1=$NIC1" \
+        --net:"vNIC2=$NIC2" \
+        --prop:"Domain=$Domain" \
+        --prop:"DNS=$DNS" \
+        --prop:"NTP=$NTP" \
+        --prop:"dg-adminPassword=$dg_adminPassword" \
+        --prop:"dg-operPassword=$dg_operPassword" \
+  --prop:"ControllerIP=$CONTROLIP" \
+        --prop:"ControllerPort=$CONTROLPORT" \
+        --prop:"ControllerSignCertChain=$CONTROLPEM" \
+        --prop:"ControllerCertChainPwd=$CONTROLPASS" \
+  --prop:"UseRemoteSyslog=False" \
+  --prop:"SyslogAddress=$SyslogAddress" \
+  --prop:"SyslogPort=$SyslogPort" \
+  --prop:"SyslogProtocol=$SyslogProtocol" \
+  --prop:"SyslogTLS=$SyslogTLS" \
+    $ROBOT_OVA_PATH vi://$VCENTER_LOGIN@$VCENTER_PATH

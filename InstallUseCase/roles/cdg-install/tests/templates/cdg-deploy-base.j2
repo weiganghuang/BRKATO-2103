@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+ 
+
+
+VM_NAME="{{ item.vm_name }}"
+ActiveVnics="{{ item.active_vnics }}"
+ 
+Hostname="{{ item.host_name }}"
+Vnic0IPv4Address="{{ item.mgmt_ip }}"
+Vnic0IPv4Gateway="{{ item.mgmt_gw  }}"
+Vnic0IPv4Netmask="{{ item.mgmt_mask }}"
+VCENTER_PATH="{{ item.vcenter_path }}"
+DS="{{ item.ds }}"
+NIC0="{{item.nics[0] }}"
+NIC1="{{ item.nics[1]}}"
+NIC2="{{ item.nics[2]}}"
+
+
+
+ROBOT_OVA_PATH="{{ cdg_ova }}"
+DM="thin"
+Deployment="onpremise-extended" 
+
+Vnic0IPv4Method="Static"
+ 
+DNS="8.8.8.8"
+NTP="10.140.129.141"
+Domain="dish-wireless.net"
+ 
+ 
+Description="Description for Cisco Crosswork Data Gateway "
+Label="Label for Cisco Crosswork Data Gateway"
+ 
+dg_adminPassword="{{ dg_admin_pw }}"
+dg_operPassword="{{ dg_oper_pw }}"
+ 
+ 
+SyslogAddress=""
+SyslogPort=514
+SyslogProtocol="UDP"
+SyslogTLS=False
+
+##Controller Information
+CONTROLIP="{{ controller_ip }}"
+CONTROLPORT=30607
+CONTROLPEM="{{ controller_pem }}"
+CONTROLPASS="{{ controller_pw }}"
+ 
+# Please replace this information according to your vcenter setup
+VCENTER_LOGIN="Administrator@vsphere.local:Gilli!1234"
+
+
+        ##--extraConfig:firmware=efi \
+        ##--extraConfig:uefi.secureBoot.enabled=true \
+
+ 
+ovftool --acceptAllEulas \
+  --skipManifestCheck \
+  --X:injectOvfEnv \
+  --overwrite \
+  --noSSLVerify \
+  --powerOffTarget \
+  --powerOn \
+        --allowExtraConfig \
+        --datastore="$DS" \
+  --diskMode="$DM" \
+        --name=$VM_NAME \
+        --prop:"Hostname=$Hostname" \
+  --prop:"Description=$Description" \
+        --prop:"Label=$Label" \
+        --deploymentOption=$Deployment \
+        --prop:"ActiveVnics=$ActiveVnics" \
+        --net:"vNIC0=$NIC0" \
+        --prop:"Vnic0IPv4Method=$Vnic0IPv4Method" \
+        --prop:"Vnic0IPv4Address=$Vnic0IPv4Address" \
+        --prop:"Vnic0IPv4Gateway=$Vnic0IPv4Gateway" \
+        --prop:"Vnic0IPv4Netmask=$Vnic0IPv4Netmask" \
+        --prop:"Vnic0IPv4Method=$Vnic0IPv4Method" \
+        --net:"vNIC1=$NIC1" \
+        --net:"vNIC2=$NIC2" \
+        --prop:"Domain=$Domain" \
+        --prop:"DNS=$DNS" \
+        --prop:"NTP=$NTP" \
+        --prop:"dg-adminPassword=$dg_adminPassword" \
+        --prop:"dg-operPassword=$dg_operPassword" \
+  --prop:"ControllerIP=$CONTROLIP" \
+        --prop:"ControllerPort=$CONTROLPORT" \
+        --prop:"ControllerSignCertChain=$CONTROLPEM" \
+        --prop:"ControllerCertChainPwd=$CONTROLPASS" \
+  --prop:"UseRemoteSyslog=False" \
+  --prop:"SyslogAddress=$SyslogAddress" \
+  --prop:"SyslogPort=$SyslogPort" \
+  --prop:"SyslogProtocol=$SyslogProtocol" \
+  --prop:"SyslogTLS=$SyslogTLS" \
+    $ROBOT_OVA_PATH vi://$VCENTER_LOGIN@$VCENTER_PATH

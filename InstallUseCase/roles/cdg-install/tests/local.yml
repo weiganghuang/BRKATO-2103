@@ -1,0 +1,11 @@
+---
+
+
+
+dg_admin_pw: Ciscosdn!123
+dg_oper_pw: Ciscosdn!123
+controller_pw: Ciscosdn!123
+vcenter_login: Administrator@vsphere.local:Gilli!1234
+vcenter_username: Administrator@vsphere.local
+vcenter_pw: Gilli!1234
+

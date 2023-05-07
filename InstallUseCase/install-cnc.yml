@@ -1,0 +1,18 @@
+---
+# file to drive cnc install. Currenty only completed cdg install. 
+# Next phase: adding vm creation for other components, add cwinfra deployment
+# 
+
+
+### install cdg ########
+
+#task play is defined t roles/cdg-install/tasks, template jinjia2 file is at roles/cdg-install/templates
+#role varialbes defined at roles/cdg-insall/default/main.yml
+
+- name: install cdg
+  hosts: installer
+  vars_files: 
+    - '../vault_vars/local.yml' 
+    - 'group_vars/local.yml' 
+  roles: 
+  - role: cdg-install

@@ -1,0 +1,83 @@
+---
+# vm-install/roles/cdg-install/defaults/main.yml
+cdg_ova: "{{ansible_env.HOME}}/CNC-3.0-CCO/cw-na-dg-3.0.0-36-release-20211105.ova"
+controller_ip: 10.140.131.55
+controller_pem: cw-admin@10.140.131.55:/home/cw-admin/controller.pem
+dns: 8.8.8.8
+ntp: 10.140.129.141
+domain: dish-wireless.net
+deploy_option: onpremise-extended
+deploy_mode: thin
+
+
+vms: 
+  - vm1:
+    vm_name: CDG3-CCO-1
+    host_name: CDG3-CCO-1
+    vnic0_ip: 10.140.131.61
+    vnic0_gw: 10.140.131.1
+    vnic0_mask: 255.255.255.0 
+    vnic1_ip: 172.26.240.61
+    vnic1_gw: 172.26.240.1
+    vnic1_mask: 255.255.255.0 
+    ds: compute11-data1
+    vcenter_path: 10.140.129.158/Cheyenne%20DC/host/10.140.129.152
+    active_vnics: 2
+    nics:
+      nic0: Application Network
+      nic1: VLAN1
+      nic2: Application Network
+
+  - vm2:
+    vm_name: CDG3-CCO-2
+    host_name: CDG3-CCO-2
+    vnic0_ip: 10.140.131.62
+    vnic0_gw: 10.140.131.1
+    vnic0_mask: 255.255.255.0 
+    vnic1_ip: 172.26.240.62
+    vnic1_gw: 172.26.240.1
+    vnic1_mask: 255.255.255.0 
+    ds: lab1r00002-ne-RDC-CNC2
+    vcenter_path: 10.140.129.158/Cheyenne%20DC/host/10.140.129.140
+    active_vnics: 2
+    nics:
+      nic0: Application Network
+      nic1: VLAN1
+      nic2: Application Network
+ 
+  - vm3:
+    vm_name: CDG3-CCO-TEST-3
+    host_name: CDG3-CCO-TEST-3
+    vnic0_ip: 10.140.131.68
+    vnic0_gw: 10.140.131.1
+    vnic0_mask: 255.255.255.0 
+    vnic1_ip: 172.26.240.68
+    vnic1_gw: 172.26.240.1
+    vnic1_mask: 255.255.255.0 
+    ds: manager-01-datastore01
+    vcenter_path: 10.140.129.158/Cheyenne%20DC/host/10.140.129.132
+    active_vnics: 2
+    nics:
+      nic0: Application Network
+      nic1: VLAN1
+      nic2: Application Network
+
+  - vm4:
+    vm_name: CDG3-CCO-TEST-4
+    host_name: CDG3-CCO-TEST-4
+    vnic0_ip: 10.140.131.69
+    vnic0_gw: 10.140.131.1
+    vnic0_mask: 255.255.255.0 
+    vnic1_ip: 172.26.240.69
+    vnic1_gw: 172.26.240.1
+    vnic1_mask: 255.255.255.0 
+    ds: manager-01-datastore01
+    vcenter_path: 10.140.129.158/Cheyenne%20DC/host/10.140.129.132
+    active_vnics: 2
+    nics:
+      nic0: Application Network
+      nic1: VLAN1
+      nic2: Application Network
+  
+
+

@@ -1,0 +1,7 @@
+[nso]
+10.140.131.28
+10.140.131.29
+[local]
+127.0.0.1 ansible_connection=local
+[installer]
+10.140.131.34 ansible_connection=ssh ansible_ssh_user=cwadmin
