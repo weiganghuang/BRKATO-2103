@@ -1,0 +1,24 @@
+BRAKOAT-2103 cheatsheet
+
+1. Move to code after slide 27. InstallUseCase, main task, and template
+2. Move to code after slide 34
+	a. common task
+	b. roles/main to include common task
+	c. 
+3. Move to code after slide 4
+4. Demo runs from /Users/weigang/git/CNC-Automation/BRKATO-2103/, Usecase1: add and attach devices, Usecase2: admin reset
+5. dCloud vpn: dcloud-sjc-anyconnect.cisco.com, v944user1/db76d2, make sure all the devices are removed before demo
+6. dCloud crosswork access: https://198.18.134.219:30603, admin/cRo55work!
+
+
+Timeline:
+1. overview till challenge slide: 5 minutes
+2. 5 minutes before Use cases
+3. 7 minutes Install CDG
+4. Add Device: start with v1 for multiple api's, end with v2 for one api, 17 minutes (20 for recap, demo kick start)
+5. UseCase 3:
+	a. common task, 5 minutes
+	b. blocks
+6. 
+
+

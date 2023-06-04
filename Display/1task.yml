@@ -4,6 +4,8 @@
   uri:
     ......
     headers:
+      method: POST
+      url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"
       ......
   register: addNodeAPIOoutput
   loop: "{{devices}}"
