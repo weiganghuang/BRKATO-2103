@@ -17,9 +17,6 @@
   when: device_uuids[item.host_name] is defined
   loop: "{{devices}}"
 
-- name: pause
-  pause:
-    seconds: 1
 
 - name: set admin up for the device
   uri:
@@ -38,9 +35,7 @@
   when: device_uuids[item.host_name] is defined
   loop: "{{devices}}"
   
-- name: pause
-  pause:
-    seconds: 1
+
   
 
 

@@ -16,10 +16,6 @@
   register: myOutput
   when: device_uuids[item.host_name] is defined
 
-- name: pause
-  pause:
-    seconds: 1
-
 - name: set admin up for the device
   uri:
     validate_certs: no
@@ -36,9 +32,7 @@
   register: myOutput
   when: device_uuids[item.host_name] is defined
   
-- name: pause
-  pause:
-    seconds: 1
+
   
 
 
