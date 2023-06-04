@@ -17,7 +17,6 @@
   when: device_uuids[item.host_name] is defined
   loop: "{{devices}}"
 
-
 - name: set admin up for the device
   uri:
     validate_certs: no
