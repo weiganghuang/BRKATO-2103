@@ -10,6 +10,15 @@
   register: myOutput
   when: device_uuids[item.host_name] is defined
 
+- name: enable gnum
+  uri:
+    ......
+    url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"
+    return_content: yes
+    headers:
+      ......
+  register: myOutput
+  when: device_uuids[item.host_name] is defined
 
 - name: set admin up for the device
   uri:

@@ -11,6 +11,15 @@
           ......
       register: myOutput
 
+    - name: enable gnum
+      uri:
+        ......
+        url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"
+        return_content: yes
+        headers:
+          ......
+      register: myOutput
+
     - name: set admin up for the device
       uri:
         .......
