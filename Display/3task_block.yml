@@ -1,6 +1,6 @@
 ---
 
-- name: enable gnmi
+- name: admin-down/gnmi/admin-up
   block:
     - name: apply admin down
       uri:

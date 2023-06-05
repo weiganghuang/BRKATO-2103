@@ -1,6 +1,6 @@
 ---
 
-- name: enable gnmi
+- name: apply admin down
   uri:
     ......
     url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"
