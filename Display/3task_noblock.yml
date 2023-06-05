@@ -1,6 +1,6 @@
 ---
 
-- name: apply admin down
+- name: enable gnmi
   uri:
     ......
     url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"
@@ -20,7 +20,7 @@
   register: myOutput
   when: device_uuids[item.host_name] is defined
 
-- name: set admin up for the device
+- name: apply admin up 
   uri:
     ......
     url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"

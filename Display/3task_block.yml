@@ -1,6 +1,6 @@
 ---
 
-- name: admin reset
+- name: enable gnmi
   block:
     - name: apply admin down
       uri:
@@ -20,7 +20,7 @@
           ......
       register: myOutput
 
-    - name: set admin up for the device
+    - name: apply admin up
       uri:
         .......
         url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"
