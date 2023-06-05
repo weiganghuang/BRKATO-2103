@@ -1,6 +1,6 @@
 ---
 
-- name: admin reset
+- name: admin down, enable gnmi, admin up
   block:
 
     - name: apply admin down

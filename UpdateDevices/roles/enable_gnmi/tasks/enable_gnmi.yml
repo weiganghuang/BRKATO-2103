@@ -32,7 +32,7 @@
   register: myOutput
   when: device_uuids[item.host_name] is defined
 
-- name: set admin up for the device
+- name: apply admin up
   uri:
     validate_certs: no
     status_code: [200, 201, 202]
