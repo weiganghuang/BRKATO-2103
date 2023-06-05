@@ -8,7 +8,6 @@
     - "{{playbook_dir}}/vault_variables.yml"
 
   roles:
-    # - device_onboarding
-    # - enable_gnmi
-    - admin_reset
+    - enable_gnmi
+    
     

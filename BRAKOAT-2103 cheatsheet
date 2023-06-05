@@ -6,7 +6,7 @@ BRAKOAT-2103 cheatsheet
 	b. roles/main to include common task
 	c. 
 3. Move to code after slide 4
-4. Demo runs from /Users/weigang/git/CNC-Automation/BRKATO-2103/, Usecase1: add and attach devices, Usecase2: admin reset
+4. Demo runs from /Users/weigang/git/CNC-Automation/BRKATO-2103/, AddDevices: add and attach devices, EnableGnmi: EnableGNMI
 5. dCloud vpn: dcloud-sjc-anyconnect.cisco.com, v944user1/db76d2, make sure all the devices are removed before demo
 6. dCloud crosswork access: https://198.18.134.219:30603, admin/cRo55work!
 
@@ -18,7 +18,8 @@ Timeline:
 4. Add Device: start with v1 for multiple api's, end with v2 for one api, 17 minutes (20 for recap, demo kick start)
 5. UseCase 3:
 	a. common task, 5 minutes
-	b. blocks
-6. 
+	b. blocks, 7 minutes
+6. Demo: 2 minutes
+7. Variables and summary: 5 minutes
 
 

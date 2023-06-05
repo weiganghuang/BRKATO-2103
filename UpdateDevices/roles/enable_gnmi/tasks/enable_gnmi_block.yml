@@ -18,6 +18,21 @@
         body: "{{ lookup('template', 'admin_down.j2')}}"
       register: myOutput
 
+    - name: enable gnmi
+      uri:
+        validate_certs: no
+        status_code: [200, 201, 202]
+        method: PATCH
+        url: "https://{{cnc_ip}}:{{cnc_port}}/crosswork/inventory/v1/nodes"
+        return_content: yes
+        headers:
+          Content-Type: application/yang-data+json
+          Accept: application/yang-data+json
+          Authorization: "Bearer {{ myJWT.content }}"
+        body_format: json
+        body: "{{ lookup('template', 'enable_gnmi.j2')}}"
+      register: myOutput
+
     - name: set admin up for the device
       uri:
         validate_certs: no

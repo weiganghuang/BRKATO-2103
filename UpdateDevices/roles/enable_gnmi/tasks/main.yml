@@ -10,6 +10,6 @@
   import_tasks: "{{playbook_dir}}/common-tasks/get_device_info_from_cnc.yml"
 
     
-- name: admin reset (down and up)
-  include_tasks: admin_reset_block.yml
+- name: enable gnmi (admin_down, enable_gnmi, admin_up)
+  include_tasks: enable_gnmi_block.yml
   loop: "{{devices}}"
